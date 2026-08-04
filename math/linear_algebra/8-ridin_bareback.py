@@ -3,7 +3,7 @@
 
 
 def mat_mul(mat1, mat2, axis=0):
-    """Add arr1 and arr2 to new element-wise.
+    """mult arr1 and arr2 to new element-wise.
 
     Return a new list. hori and vert
     """
