@@ -3,13 +3,13 @@
 two matrices along a specific axis:"""
 
 
-def cat_matrices2D(mat1, mat2, direction=0):
+def cat_matrices2D(mat1, mat2, axis=0):
     """Add arr1 and arr2 to new element-wise.
 
     Return a new list. hori and vert
     """
 
-    if direction == 0:
+    if axis == 0:
         if len(mat1[0]) != len(mat2[0]):
             return None
 
@@ -20,7 +20,7 @@ def cat_matrices2D(mat1, mat2, direction=0):
             result.append(row[:])
         return result
 
-    if direction == 1:
+    if axis == 1:
         if len(mat1) != len(mat2):
             return None
 
