@@ -1,24 +1,10 @@
 #!/usr/bin/env python3
-"""mat_mul(mat1, mat2): that performs matrix multiplication:"""
-
-
-def mat_mul(mat1, mat2):
-    """mult arr1 and arr2 to new element-wise.
-
-    Return a new list. hori and vert
-    """
-    if len(mat1[0]) != len(mat2):
-        return None
-
-    result = []
-
-    for each_lines in range(len(mat1)):
-        new_line = []
-        for each_col in range(len(mat2[0])):
-            total = 0
-            for each_linesBIS in range(len(mat2)):
-                total += mat1[each_lines][each_linesBIS] \
-                    * mat2[each_linesBIS][each_col]
-            new_line.append(total)
-        result.append(new_line)
-    return result
+import numpy as np
+matrix = np.array([[1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12],
+                   [13, 14, 15, 16, 17, 18], [19, 20, 21, 22, 23, 24]])
+mat1 =  # your code here
+mat2 =  # your code here
+mat3 =  # your code here
+print("The middle two rows of the matrix are:\n{}".format(mat1))
+print("The middle two columns of the matrix are:\n{}".format(mat2))
+print("The bottom-right, square, 3x3 matrix is:\n{}".format(mat3))
