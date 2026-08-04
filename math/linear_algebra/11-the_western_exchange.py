@@ -4,4 +4,4 @@
 
 def np_transpose(matrix):
     """transpose of a numpy ndarray."""
-    return matrix
+    return matrix.T
