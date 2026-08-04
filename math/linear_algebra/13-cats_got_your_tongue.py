@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""concatenate on numpy ndarrays."""
+"""two numpy ndarrays along a specific axis."""
+import numpy as np
 
 
-def np_elementwise(mat1, mat2):
-    """array of sum, difference, product, quotient."""
-    return (mat1 + mat2, mat1 - mat2, mat1 * mat2, mat1 / mat2)
+def np_cat(mat1, mat2, axis=0):
+    """Concatenate mat1 and mat2 along the given axis."""
+    return np.concatenate((mat1, mat2), axis=axis)
