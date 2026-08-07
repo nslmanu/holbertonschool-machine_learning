@@ -11,6 +11,7 @@ def change_scale():
 
 
     plt.plot(x, y)
+    plt.yscale('log')
     plt.xlabel('Time (years)')
     plt.ylabel('Fraction Remaining')
     plt.title('Exponential Decay of C-14')
