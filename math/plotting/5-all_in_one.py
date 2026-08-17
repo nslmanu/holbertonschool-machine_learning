@@ -38,7 +38,6 @@ def all_in_one():
     plt.xlim(0, 10)
     plt.xlabel('', fontsize='x-small')
     plt.ylabel('', fontsize='x-small')
-    plt.title('', fontsize='x-small')
     plt.tick_params(labelsize='x-small')
 
     # plot 2 : scatter
@@ -56,8 +55,8 @@ def all_in_one():
     plt.xlabel('Time (years)', fontsize='x-small')
     plt.ylabel('Fraction Remaining', fontsize='x-small')
     plt.title('Exponential Decay of C-14', fontsize='x-small')
-    plt.tick_params(labelsize='x-small')
     plt.xlim(0, 28650)
+    plt.tick_params(labelsize='x-small')
 
     # plot 4 : two lines
     plt.subplot(3, 2, 4)
@@ -72,15 +71,18 @@ def all_in_one():
     plt.legend(loc='upper right', fontsize='x-small')
     plt.tick_params(labelsize='x-small')
 
-    # plot 5 : histogram (prend 2 colonnes)
+    # plot 5 : histogram (prend toute la largeur)
     plt.subplot(3, 1, 3)
     plt.hist(student_grades,
              bins=range(0, 101, 10),
              edgecolor='black')
+    plt.xlim(0, 100)
+    plt.ylim(0, 30)
+    plt.xticks(range(0, 101, 10), fontsize='x-small')
+    plt.yticks(range(0, 31, 5), fontsize='x-small')
     plt.xlabel('Grades', fontsize='x-small')
     plt.ylabel('Number of Students', fontsize='x-small')
     plt.title('Project A', fontsize='x-small')
-    plt.xlim(0, 100)
     plt.tick_params(labelsize='x-small')
 
     plt.tight_layout()
