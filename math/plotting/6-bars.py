@@ -11,7 +11,7 @@ def bars():
     plt.figure(figsize=(6.4, 4.8))
 
     persons = ['Farrah', 'Fred', 'Felicia']
-    apples  = fruit[0]
+    apples = fruit[0]
     bananas = fruit[1]
     oranges = fruit[2]
     peaches = fruit[3]
