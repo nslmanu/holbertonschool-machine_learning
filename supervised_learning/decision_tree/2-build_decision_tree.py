@@ -49,7 +49,7 @@ class Node:
         for x in lines[1:]:
             new_text += ("      " + x) + "\n"
         return new_text
-    
+
     def __str__(self):
         """Return a string representation of the node."""
         if self.is_root:
@@ -64,7 +64,7 @@ class Node:
         if self.right_child:
             result += self.right_child_add_prefix(
                 self.right_child.__str__())
-        return result.rstrip("\n")
+        return result
 
 
 class Leaf(Node):
@@ -118,4 +118,4 @@ class Decision_Tree():
 
     def __str__(self):
         """Return a string representation of the tree."""
-        return self.root.__str__() + "\n"
+        return self.root.__str__()
