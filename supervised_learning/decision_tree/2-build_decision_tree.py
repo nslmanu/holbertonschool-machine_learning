@@ -39,7 +39,7 @@ class Node:
         lines = text.split("\n")
         new_text = "    +---> " + lines[0] + "\n"
         for x in lines[1:]:
-            new_text += "    |    " + x + "\n"
+            new_text += "    |" + x + "\n"  # ← "    |" sans espaces après
         return new_text
 
     def right_child_add_prefix(self, text):
@@ -47,8 +47,7 @@ class Node:
         lines = text.split("\n")
         new_text = "    +---> " + lines[0] + "\n"
         for x in lines[1:]:
-            if x:
-                new_text += "         " + x + "\n"
+            new_text += "     " + x + "\n"  # ← 5 espaces
         return new_text
 
     def __str__(self):
