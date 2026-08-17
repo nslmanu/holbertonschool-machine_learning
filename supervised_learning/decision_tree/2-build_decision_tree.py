@@ -87,7 +87,7 @@ class Leaf(Node):
 
     def __str__(self):
         """Return a string representation of the leaf."""
-        return f"-> leaf [value={self.value}]"
+        return f"leaf [value={self.value}]"
 
 
 class Decision_Tree():
@@ -117,6 +117,5 @@ class Decision_Tree():
         return self.root.count_nodes_below(only_leaves=only_leaves)
 
     def __str__(self):
-        """Return a string representation of the leaf."""
-        return f"leaf [value={self.value}]"
-    
+        """Return a string representation of the tree."""
+        return self.root.__str__()
