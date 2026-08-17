@@ -118,4 +118,4 @@ class Decision_Tree():
 
     def __str__(self):
         """Return a string representation of the tree."""
-        return self.root.__str__()
+        return self.root.__str__() + "\n"
