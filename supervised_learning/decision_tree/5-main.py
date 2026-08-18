@@ -51,5 +51,3 @@ A=np.array([[11.65],[6.917]])
 print("\n\nFor example_1(4)")
 print("A=\n",A)
 print_indicator_values_on_leaves(T,A)
-
-
