@@ -200,5 +200,3 @@ class Decision_Tree():
     def pred(self, x):
         """Predict class for a single individual."""
         return self.root.pred(x)
-
-    

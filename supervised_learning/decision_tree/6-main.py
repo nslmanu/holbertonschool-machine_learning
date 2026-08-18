@@ -15,7 +15,8 @@ def random_tree(max_depth, n_classes,n_features,seed=0) :
     def build_children(node) :
         feat=rng.integers(0,n_features)
         node.feature=feat
-        node.threshold = np.round(rng.uniform(0,1)*(node.upper[feat]-node.lower[feat])+node.lower[feat],2)
+        node.threshold = np.round(rng.uniform(0,1)*
+                                  (node.upper[feat]-node.lower[feat])+node.lower[feat],2)
         if node.depth==max_depth-1 :
             node.left_child=Leaf(depth=max_depth, value=rng.integers(0,n_classes))
             node.right_child=Leaf(depth=max_depth, value=rng.integers(0,n_classes))
