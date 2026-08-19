@@ -159,49 +159,65 @@ class Decision_Tree():
         return (values[1:] + values[:-1]) / 2
 
     def Gini_split_criterion_one_feature(self, node, feature):
-        """Return best threshold and Gini for one feature."""
-        thresholds = self.possible_thresholds(node, feature)
-        n = node.sub_population.sum()
-        classes = np.unique(self.target[node.sub_population])
-        c = len(classes)
-        t = len(thresholds)
+    """Return best threshold and Gini for one feature."""
+    thresholds = self.possible_thresholds(node, feature)
+    n = node.sub_population.sum()
+    classes = np.unique(self.target[node.sub_population])
+    c = len(classes)
+    t = len(thresholds)
 
-        # Left_F[i, j, k] = True si individu i est à gauche du seuil j
-        # ET appartient à la classe k
-        Left_F = np.array([
-            [
-                (self.explanatory[node.sub_population, feature] >
+    # Left_F shape (n, t, c) :
+    # Left_F[i, j, k] = True si :
+    #   - individu i est dans sub_population
+    #   - feature de i > threshold j
+    #   - classe de i == classe k
+    Left_F = np.array([
+        [
+            np.greater(
+                self.explanatory[:, feature],
                 thresholds[j]) &
-                (self.target[node.sub_population] == classes[k])
-                for k in range(c)
-            ]
-            for j in range(t)
-        ])
-        # Left_F shape : (t, c, n)
+            (self.target == classes[k]) &
+            node.sub_population
+            for k in range(c)
+        ]
+        for j in range(t)
+    ])
+    # Left_F shape : (t, c, n_total)
 
-        # somme sur les individus → (t, c)
-        left_counts = Left_F.sum(axis=2)
-        right_counts = (node.sub_population.sum() -
-                        Left_F.sum(axis=2))
+    # compte les True → (t, c)
+    left_counts = Left_F.sum(axis=2)
 
-        # taille des groupes → (t,)
-        left_sizes = left_counts.sum(axis=1)
-        right_sizes = right_counts.sum(axis=1)
+    # taille des groupes gauche → (t,)
+    left_sizes = left_counts.sum(axis=1)
 
-        # Gini gauche et droite
-        left_gini = 1 - np.sum(
-            (left_counts / (left_sizes[:, np.newaxis] + 1e-10)) ** 2,
-            axis=1)
-        right_gini = 1 - np.sum(
-            (right_counts / (right_sizes[:, np.newaxis] + 1e-10)) ** 2,
-            axis=1)
+    # droite = total - gauche
+    right_counts = np.array([
+        [
+            ((self.target == classes[k]) &
+             node.sub_population &
+             ~np.greater(self.explanatory[:, feature], thresholds[j])).sum()
+            for k in range(c)
+        ]
+        for j in range(t)
+    ])
+    right_sizes = right_counts.sum(axis=1)
 
-        # moyenne pondérée
-        gini_avg = (left_sizes * left_gini +
-                    right_sizes * right_gini) / n
+    # Gini gauche
+    left_gini = 1 - np.sum(
+        (left_counts / (left_sizes[:, np.newaxis] + 1e-10)) ** 2,
+        axis=1)
 
-        best = np.argmin(gini_avg)
-        return thresholds[best], gini_avg[best]
+    # Gini droite
+    right_gini = 1 - np.sum(
+        (right_counts / (right_sizes[:, np.newaxis] + 1e-10)) ** 2,
+        axis=1)
+
+    # moyenne pondérée
+    gini_avg = (left_sizes * left_gini +
+                right_sizes * right_gini) / n
+
+    best = np.argmin(gini_avg)
+    return thresholds[best], gini_avg[best]
 
     def Gini_split_criterion(self, node):
         """Return best feature and threshold using Gini impurity."""
