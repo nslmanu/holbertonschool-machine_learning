@@ -166,31 +166,39 @@ class Decision_Tree():
         c = len(classes)
         t = len(thresholds)
 
+        # Left_F[i, j, k] = True si individu i est à gauche du seuil j
+        # ET appartient à la classe k
         Left_F = np.array([
             [
-                (self.explanatory[:, feature][node.sub_population] >
+                (self.explanatory[node.sub_population, feature] >
                 thresholds[j]) &
                 (self.target[node.sub_population] == classes[k])
                 for k in range(c)
             ]
             for j in range(t)
         ])
+        # Left_F shape : (t, c, n)
 
-        left_sizes = Left_F.sum(axis=2)
-        right_sizes = node.sub_population.sum() - left_sizes
+        # somme sur les individus → (t, c)
+        left_counts = Left_F.sum(axis=2)
+        right_counts = (node.sub_population.sum() -
+                        Left_F.sum(axis=2))
 
+        # taille des groupes → (t,)
+        left_sizes = left_counts.sum(axis=1)
+        right_sizes = right_counts.sum(axis=1)
+
+        # Gini gauche et droite
         left_gini = 1 - np.sum(
-            (left_sizes / (left_sizes.sum(axis=1, keepdims=True) + 1e-10)) ** 2,
+            (left_counts / (left_sizes[:, np.newaxis] + 1e-10)) ** 2,
             axis=1)
         right_gini = 1 - np.sum(
-            (right_sizes / (right_sizes.sum(axis=1, keepdims=True) + 1e-10)) ** 2,
+            (right_counts / (right_sizes[:, np.newaxis] + 1e-10)) ** 2,
             axis=1)
 
-        left_total = left_sizes.sum(axis=1)
-        right_total = right_sizes.sum(axis=1)
-
-        gini_avg = (left_total * left_gini +
-                    right_total * right_gini) / n
+        # moyenne pondérée
+        gini_avg = (left_sizes * left_gini +
+                    right_sizes * right_gini) / n
 
         best = np.argmin(gini_avg)
         return thresholds[best], gini_avg[best]
