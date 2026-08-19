@@ -287,4 +287,4 @@ class Decision_Tree():
     def accuracy(self, test_explanatory, test_target):
         """Return accuracy of the model."""
         return np.sum(np.equal(self.predict(test_explanatory),
-                               test_target)) / test_target.siz
+                               test_target)) / test_target.size
