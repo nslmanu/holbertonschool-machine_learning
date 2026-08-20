@@ -38,7 +38,7 @@ class Isolation_Random_Forest():
             nodes.append(T.count_nodes())
             leaves.append(T.count_nodes(only_leaves=True))
         if verbose == 1:
-            print(f""" Training finished.
+            print(f"""  Training finished.
     - Mean depth                    : {np.array(depths).mean()}
     - Mean number of nodes          : {np.array(nodes).mean()}
     - Mean number of leaves         : {np.array(leaves).mean()}""")
