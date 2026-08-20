@@ -119,6 +119,6 @@ class Isolation_Random_Tree():
 
         if verbose == 1:
             print(f"""  Training finished.
-    - Depth                        : {self.depth()                          }
-    - Number of nodes              : {self.count_nodes()                    }
-    - Number of leaves             : {self.count_nodes(only_leaves=True)    }""")
+    - Depth                        : {self.depth()}
+    - Number of nodes              : {self.count_nodes()}
+    - Number of leaves             : {self.count_nodes(only_leaves=True)}""")
