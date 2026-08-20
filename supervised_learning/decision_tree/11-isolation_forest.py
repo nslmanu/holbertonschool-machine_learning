@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-""" Isolation Random Forest """
+"""Module that implements an Isolation Random Forest."""
 import numpy as np
 Isolation_Random_Tree = __import__('10-isolation_tree').Isolation_Random_Tree
 
 
 class Isolation_Random_Forest():
+    """Represents an Isolation Random Forest used to detect outliers."""
+
     def __init__(self, n_trees=100, max_depth=10, min_pop=1, seed=0):
+        """Initialize an Isolation_Random_Forest."""
         self.numpy_predicts = []
         self.target = None
         self.numpy_preds = None
@@ -14,10 +17,12 @@ class Isolation_Random_Forest():
         self.seed = seed
 
     def predict(self, explanatory):
+        """Return the mean isolation depth of each row over all trees."""
         predictions = np.array([f(explanatory) for f in self.numpy_preds])
         return predictions.mean(axis=0)
 
     def fit(self, explanatory, n_trees=100, verbose=0):
+        """Fit the forest by training n_trees isolation trees."""
         self.explanatory = explanatory
         self.numpy_preds = []
         depths = []
@@ -38,8 +43,7 @@ class Isolation_Random_Forest():
     - Mean number of leaves          : {np.array(leaves).mean()}""")
 
     def suspects(self, explanatory, n_suspects):
-        """ returns the n_suspects rows in explanatory that have
-        the smallest mean depth """
+        """Return the n_suspects rows in explanatory with smallest depth."""
         depths = self.predict(explanatory)
         indices = np.argsort(depths)[:n_suspects]
         return explanatory[indices], depths[indices]
