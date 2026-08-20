@@ -39,9 +39,9 @@ class Isolation_Random_Forest():
             leaves.append(T.count_nodes(only_leaves=True))
         if verbose == 1:
             print(f"""  Training finished.
-    - Mean depth                    : {np.array(depths).mean()}
-    - Mean number of nodes          : {np.array(nodes).mean()}
-    - Mean number of leaves         : {np.array(leaves).mean()}""")
+    - Mean depth                    : {np.array(depths).mean()}   
+    - Mean number of nodes          : {np.array(nodes).mean()}   
+    - Mean number of leaves         : {np.array(leaves).mean()}   """)
 
     def suspects(self, explanatory, n_suspects):
         """Returns the n_suspects rows in explanatory that have
