@@ -54,7 +54,8 @@ class Random_Forest():
     - Mean number of nodes           : {np.array(nodes).mean()}
     - Mean number of leaves          : {np.array(leaves).mean()}
     - Mean accuracy on training data : {np.array(accuracies).mean()}
-    - Accuracy of the forest on td   : {self.accuracy(self.explanatory, self.target)}""")
+    - Accuracy of the forest on td   : {self.accuracy(self.explanatory, 
+                                                      self.target)}""")
 
     def accuracy(self, test_explanatory, test_target):
         """Return accuracy of the forest."""
