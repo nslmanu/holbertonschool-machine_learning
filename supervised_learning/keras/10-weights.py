@@ -11,6 +11,7 @@ def save_weights(network, filename, save_format='keras'):
         network.save_weights(filename)
     return None
 
+
 def load_weights(network, filename):
     """Load a model's weights.
 
