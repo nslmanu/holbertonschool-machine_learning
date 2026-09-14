@@ -31,7 +31,7 @@ Y_train_oh = one_hot(Y_train, 10)
 
 input_shape = X_train.shape[1]
 
-x = tf.keras.Input(shape=input_shape)
+x = tf.keras.Input(shape=(input_shape,))
 h1 = l2_reg_create_layer(x, 256, tf.nn.tanh, 0.05)  
 y_pred = l2_reg_create_layer(h1, 10, tf.nn.softmax, 0.)   
 model = tf.keras.Model(inputs=x, outputs=y_pred)
