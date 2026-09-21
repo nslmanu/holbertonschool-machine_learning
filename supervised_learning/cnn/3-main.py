@@ -14,4 +14,3 @@ if __name__ == "__main__":
 
     dA = np.random.randn(10, h // 3, w // 3, 2)
     print(pool_backward(dA, X_train_c, (3, 3), stride=(3, 3)))
-    
