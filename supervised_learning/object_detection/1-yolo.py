@@ -33,7 +33,7 @@ class Yolo:
         box_confidences = []
         box_class_probs = []
         image_height, image_width = image_size
-        input_height, input_width = self.model.input_shape[1:3]
+        input_width, input_height = self.model.input_shape[1:3]
 
         for i, output in enumerate(outputs):
             grid_height, grid_width = output.shape[:2]
