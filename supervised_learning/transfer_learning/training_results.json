@@ -1,0 +1,13 @@
+{
+  "backbone": "EfficientNetB0",
+  "image_size": 224,
+  "seed": 0,
+  "training_examples": 45000,
+  "validation_examples": 5000,
+  "head_validation_accuracy": 0.9179999828338623,
+  "selected_stage": "frozen_features",
+  "saved_validation_accuracy": 0.9179999828338623,
+  "test_accuracy": 0.9193000197410583,
+  "test_loss": 0.30292725563049316,
+  "validation_target_met": true
+}
