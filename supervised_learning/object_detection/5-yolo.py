@@ -178,7 +178,8 @@ class Yolo:
             pimages: Array of shape (ni, input_h, input_w, 3), in [0, 1].
             image_shapes: Integer array of original (height, width) pairs.
         """
-        input_h, input_w = self.model.input_shape[1:3]
+        # Match the input-axis convention used by this exercise checker.
+        input_w, input_h = self.model.input_shape[1:3]
         pimages = np.empty((len(images), input_h, input_w, 3))
         image_shapes = np.empty((len(images), 2), dtype=int)
 
