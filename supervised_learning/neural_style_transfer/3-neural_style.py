@@ -74,7 +74,7 @@ class NST:
                 features = layer(features)
             if layer.name in selected:
                 outputs[layer.name] = features
-            if layer.name == self.content_layer:
+            if all(name in outputs for name in selected):
                 break
 
         self.model = tf.keras.Model(
