@@ -17,3 +17,18 @@ class Poisson:
             if len(data) < 2:
                 raise ValueError('data must contain multiple values')
             self.lambtha = float(sum(data) / len(data))
+
+    def pmf(self, k):
+        """Return the probability of exactly k occurrences."""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+
+        factorial = 1
+        for value in range(2, k + 1):
+            factorial *= value
+
+        e = 2.7182818285
+        return (e ** (-self.lambtha) * self.lambtha ** k
+                / factorial)
