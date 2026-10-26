@@ -37,3 +37,12 @@ class Binomial:
             combinations = combinations * (self.n - i + 1) // i
 
         return combinations * self.p ** k * (1 - self.p) ** (self.n - k)
+
+    def cdf(self, k):
+        """Return cumulative probability, with exercise-specific bounds."""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+
+        return sum(self.pmf(value) for value in range(k + 1))
