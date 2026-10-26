@@ -25,3 +25,11 @@ class Exponential:
 
         e = 2.7182818285
         return self.lambtha * e ** (-self.lambtha * x)
+
+    def cdf(self, x):
+        """Return the probability of waiting at most x time units."""
+        if x < 0:
+            return 0
+
+        e = 2.7182818285
+        return 1 - e ** (-self.lambtha * x)
