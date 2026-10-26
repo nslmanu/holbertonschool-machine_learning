@@ -24,3 +24,16 @@ class Binomial:
             estimated_p = 1 - variance / mean
             self.n = round(mean / estimated_p)
             self.p = float(mean / self.n)
+
+    def pmf(self, k):
+        """Return the probability of exactly k successes in n trials."""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+
+        combinations = 1
+        for i in range(1, min(k, self.n - k) + 1):
+            combinations = combinations * (self.n - i + 1) // i
+
+        return combinations * self.p ** k * (1 - self.p) ** (self.n - k)
