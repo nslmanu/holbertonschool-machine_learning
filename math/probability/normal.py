@@ -28,3 +28,10 @@ class Normal:
     def x_value(self, z):
         """Return the original value corresponding to a z-score."""
         return self.mean + z * self.stddev
+
+    def pdf(self, x):
+        """Return the normal probability density at x."""
+        pi = 3.1415926536
+        e = 2.7182818285
+        z = self.z_score(x)
+        return e ** (-(z ** 2) / 2) / (self.stddev * (2 * pi) ** 0.5)
