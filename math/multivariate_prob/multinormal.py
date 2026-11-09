@@ -27,3 +27,31 @@ class MultiNormal:
         self.mean = np.mean(data, axis=1, keepdims=True)
         deviation = data - self.mean
         self.cov = np.matmul(deviation, deviation.T) / (n - 1)
+
+    def pdf(self, x):
+        """Calculates the PDF at a data point.
+
+        Args:
+            x (numpy.ndarray): shape (d, 1), the data point whose PDF
+                should be calculated.
+
+        Returns:
+            float: the value of the PDF at x.
+
+        Raises:
+            TypeError: if x is not a numpy.ndarray.
+            ValueError: if x does not have the shape (d, 1).
+        """
+        if not isinstance(x, np.ndarray):
+            raise TypeError("x must be a numpy.ndarray")
+
+        d = self.cov.shape[0]
+        if x.ndim != 2 or x.shape != (d, 1):
+            raise ValueError("x must have the shape ({}, 1)".format(d))
+
+        det = np.linalg.det(self.cov)
+        inv = np.linalg.inv(self.cov)
+        diff = x - self.mean
+        exponent = -0.5 * np.matmul(np.matmul(diff.T, inv), diff)[0][0]
+        coefficient = 1.0 / np.sqrt(((2 * np.pi) ** d) * det)
+        return float(coefficient * np.exp(exponent))
