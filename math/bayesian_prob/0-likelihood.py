@@ -5,20 +5,13 @@ import numpy as np
 
 
 def likelihood(x, n, p):
-    """Return the likelihood of observing x successes in n trials for p.
-
-    Args:
-        x: Observed number of successes.
-        n: Number of observed trials.
-        p: One-dimensional array of candidate success probabilities.
-
-    Returns:
-        A one-dimensional array of likelihoods, aligned with p.
-    """
-    if not isinstance(n, int) or n <= 0:
+    """Calculate likelihoods for observed binomial data."""
+    if type(n) is not int or n <= 0:
         raise ValueError('n must be a positive integer')
-    if not isinstance(x, int) or x < 0:
-        raise ValueError('x must be an integer that is greater than or equal to 0')
+    if type(x) is not int or x < 0:
+        raise ValueError(
+            'x must be an integer that is greater than or equal to 0'
+        )
     if x > n:
         raise ValueError('x cannot be greater than n')
     if not isinstance(p, np.ndarray) or p.ndim != 1:
