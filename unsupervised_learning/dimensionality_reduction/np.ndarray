@@ -1,0 +1,8 @@
+>>> vector = np.ones((100, 1))
+>>> m1 = vector[55]
+>>> m2 = vector[55, 0]
+>>> vector[55] = 2
+>>> m1
+array([2.])
+>>> m2
+1.0
