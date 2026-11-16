@@ -1,4 +1,3 @@
-```python
 #!/usr/bin/env python3
 """Calculate marginal probabilities for Bayesian hypotheses."""
 
@@ -48,4 +47,3 @@ def marginal(x, n, P, Pr):
 
     likelihood = combinations * P ** x * (1 - P) ** (n - x)
     return np.sum(likelihood * Pr)
-```
