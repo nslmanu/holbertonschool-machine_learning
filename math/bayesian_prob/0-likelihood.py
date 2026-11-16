@@ -27,7 +27,7 @@ def likelihood(x, n, P):
         raise TypeError('P must be a 1D numpy.ndarray')
     if np.any(P < 0) or np.any(P > 1):
         raise ValueError(
-            'P must be a 1D numpy.ndarray with values in the range [0, 1]'
+            'All values in P must be in the range [0, 1]'
         )
 
     combinations = 1
