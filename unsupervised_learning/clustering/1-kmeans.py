@@ -28,6 +28,11 @@ def kmeans(X, k, iterations=1000):
     centroids = initialize(X, k)
     if centroids is None:
         return None, None
+    centroids = np.random.uniform(
+        low=np.min(X, axis=0),
+        high=np.max(X, axis=0),
+        size=(k, X.shape[1]),
+    )
 
     for _ in range(iterations):
         distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)
