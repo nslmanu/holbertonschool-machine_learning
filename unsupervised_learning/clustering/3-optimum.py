@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Recherche du nombre de clusters le plus pertinent par variance."""
+"""Fonction permettant de trouver le k optimal."""
 
 import numpy as np
 
@@ -8,41 +8,38 @@ variance = __import__('2-variance').variance
 
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
-    """Exécute K-means pour plusieurs valeurs de ``k``.
-
-    Args:
-        X (numpy.ndarray): Données de forme (n, d).
-        kmin (int): Plus petite valeur de k à tester.
-        kmax (int): Plus grande valeur de k à tester.
-        iterations (int): Nombre maximal d'itérations de K-means.
-
-    Returns:
-        tuple: Résultats de K-means et améliorations de variance, ou
-        ``(None, None)`` si les paramètres sont invalides.
-    """
+    """Teste plusieurs nombres de clusters avec K-means."""
     if kmax is None:
         kmax = kmin
 
-    if not isinstance(X, np.ndarray) or X.ndim != 2 or X.shape[0] == 0:
+    if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None, None
+
     if not isinstance(kmin, int) or kmin <= 0:
         return None, None
-    if not isinstance(kmax, int) or kmax <= 0 or kmax <= kmin:
+
+    if not isinstance(kmax, int) or kmax <= 0:
         return None, None
+
     if not isinstance(iterations, int) or iterations <= 0:
+        return None, None
+
+    if kmax <= kmin:
         return None, None
 
     results = []
     d_vars = []
-    initial_variance = None
+    first_variance = None
 
     for k in range(kmin, kmax + 1):
         centroids, clss = kmeans(X, k, iterations)
         current_variance = variance(X, centroids)
+
         results.append((centroids, clss))
 
-        if initial_variance is None:
-            initial_variance = current_variance
-        d_vars.append(initial_variance - current_variance)
+        if first_variance is None:
+            first_variance = current_variance
+
+        d_vars.append(first_variance - current_variance)
 
     return results, d_vars
