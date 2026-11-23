@@ -3,8 +3,6 @@
 
 import numpy as np
 
-initialize = __import__('0-initialize').initialize
-
 
 def kmeans(X, k, iterations=1000):
     """Regroupe les observations de ``X`` en ``k`` clusters.
@@ -25,9 +23,6 @@ def kmeans(X, k, iterations=1000):
     if not isinstance(iterations, int) or iterations <= 0:
         return None, None
 
-    centroids = initialize(X, k)
-    if centroids is None:
-        return None, None
     centroids = np.random.uniform(
         low=np.min(X, axis=0),
         high=np.max(X, axis=0),
