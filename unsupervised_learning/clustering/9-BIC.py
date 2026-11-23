@@ -29,7 +29,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     if kmax is None:
         kmax = X.shape[0]
 
-    if type(kmax) is not int or kmax <= 0 or kmax < kmin:
+    if type(kmax) is not int or kmax <= 0 or kmax <= kmin:
         return None, None, None, None
     if type(iterations) is not int or iterations <= 0:
         return None, None, None, None
