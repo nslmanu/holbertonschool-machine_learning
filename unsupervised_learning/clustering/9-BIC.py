@@ -18,7 +18,8 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         verbose (bool): Indique s'il faut afficher l'avancement d'EM.
 
     Returns:
-        tuple: ``(best_k, best_result, l, b)``, ou quatre ``None`` si les
+        tuple: ``(best_k, best_result, likelihoods, b)``, ou quatre ``None``
+        si les
         paramètres sont invalides.
     """
     if type(X) is not np.ndarray or len(X.shape) != 2 or X.shape[0] == 0:
@@ -39,7 +40,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         return None, None, None, None
 
     n, d = X.shape
-    l = np.empty(kmax - kmin + 1)
+    likelihoods = np.empty(kmax - kmin + 1)
     b = np.empty(kmax - kmin + 1)
     best_k = None
     best_result = None
@@ -52,7 +53,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
             return None, None, None, None
 
         parameter_count = (k * d * (d + 1) / 2) + (k * d) + (k - 1)
-        l[index] = log_likelihood
+        likelihoods[index] = log_likelihood
         b[index] = (parameter_count * np.log(n)) - (2 * log_likelihood)
 
         if b[index] < lowest_bic:
@@ -60,4 +61,4 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
             best_k = k
             best_result = (pi, m, S)
 
-    return best_k, best_result, l, b
+    return best_k, best_result, likelihoods, b
