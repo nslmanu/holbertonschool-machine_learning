@@ -22,13 +22,10 @@ def maximization(X, g):
 
     n, d = X.shape
     k = g.shape[0]
-    if n == 0 or k == 0 or g.shape[1] != n or np.any(g < 0):
+    if g.shape[1] != n:
         return None, None, None
 
     weights = np.sum(g, axis=1)
-    if np.any(weights == 0):
-        return None, None, None
-
     pi = weights / n
     m = (g @ X) / weights[:, np.newaxis]
     S = np.empty((k, d, d))
