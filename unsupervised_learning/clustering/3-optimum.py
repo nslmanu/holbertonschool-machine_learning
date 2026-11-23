@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Find the optimum number of clusters."""
+"""Recherche du nombre de clusters le plus pertinent par variance."""
 
 import numpy as np
 
@@ -8,35 +8,41 @@ variance = __import__('2-variance').variance
 
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
-    """Test K-means with different cluster sizes."""
-    if type(X) is not np.ndarray or len(X.shape) != 2:
-        return None, None
+    """Exécute K-means pour plusieurs valeurs de ``k``.
 
-    if type(kmin) is not int or kmin <= 0:
-        return None, None
+    Args:
+        X (numpy.ndarray): Données de forme (n, d).
+        kmin (int): Plus petite valeur de k à tester.
+        kmax (int): Plus grande valeur de k à tester.
+        iterations (int): Nombre maximal d'itérations de K-means.
 
+    Returns:
+        tuple: Résultats de K-means et améliorations de variance, ou
+        ``(None, None)`` si les paramètres sont invalides.
+    """
     if kmax is None:
         kmax = kmin
 
-    if type(kmax) is not int or kmax <= 0 or kmax <= kmin:
+    if not isinstance(X, np.ndarray) or X.ndim != 2 or X.shape[0] == 0:
         return None, None
-
-    if type(iterations) is not int or iterations <= 0:
+    if not isinstance(kmin, int) or kmin <= 0:
+        return None, None
+    if not isinstance(kmax, int) or kmax <= 0 or kmax <= kmin:
+        return None, None
+    if not isinstance(iterations, int) or iterations <= 0:
         return None, None
 
     results = []
     d_vars = []
-    first_variance = None
+    initial_variance = None
 
     for k in range(kmin, kmax + 1):
-        C, clss = kmeans(X, k, iterations)
-        results.append((C, clss))
+        centroids, clss = kmeans(X, k, iterations)
+        current_variance = variance(X, centroids)
+        results.append((centroids, clss))
 
-        current_variance = variance(X, C)
-
-        if first_variance is None:
-            first_variance = current_variance
-
-        d_vars.append(first_variance - current_variance)
+        if initial_variance is None:
+            initial_variance = current_variance
+        d_vars.append(initial_variance - current_variance)
 
     return results, d_vars
